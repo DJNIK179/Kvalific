@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ЭкзаменModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Login" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="MiddleName" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Medicines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Form_release" Type="nvarchar(max)" />
+          <Property Name="Dosage" Type="nvarchar(max)" />
+          <Property Name="Manufacturer" Type="nvarchar(max)" />
+          <Property Name="Shelf_life" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pharmacist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="MiddleName" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Autorization_Buyer">
+          <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+          <End Role="Autorization" Type="Self.Autorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Autorization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autorization_Pharmacist">
+          <End Role="Pharmacist" Type="Self.Pharmacist" Multiplicity="1" />
+          <End Role="Autorization" Type="Self.Autorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pharmacist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Autorization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ЭкзаменModelContainer">
+          <EntitySet Name="Autorization" EntityType="Self.Autorization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicines" EntityType="Self.Medicines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pharmacist" EntityType="Self.Pharmacist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Autorization_Buyer" Association="Self.FK_Autorization_Buyer">
+            <End Role="Buyer" EntitySet="Buyer" />
+            <End Role="Autorization" EntitySet="Autorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autorization_Pharmacist" Association="Self.FK_Autorization_Pharmacist">
+            <End Role="Pharmacist" EntitySet="Pharmacist" />
+            <End Role="Autorization" EntitySet="Autorization" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ЭкзаменModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Buyer" Relationship="Self.FK_Autorization_Buyer" FromRole="Autorization" ToRole="Buyer" />
+          <NavigationProperty Name="Pharmacist" Relationship="Self.FK_Autorization_Pharmacist" FromRole="Autorization" ToRole="Pharmacist" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autorization" Relationship="Self.FK_Autorization_Buyer" FromRole="Buyer" ToRole="Autorization" />
+        </EntityType>
+        <EntityType Name="Medicines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Form_release" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Dosage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shelf_life" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pharmacist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autorization" Relationship="Self.FK_Autorization_Pharmacist" FromRole="Pharmacist" ToRole="Autorization" />
+        </EntityType>
+        <Association Name="FK_Autorization_Buyer">
+          <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+          <End Role="Autorization" Type="Self.Autorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Autorization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autorization_Pharmacist">
+          <End Role="Pharmacist" Type="Self.Pharmacist" Multiplicity="1" />
+          <End Role="Autorization" Type="Self.Autorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pharmacist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Autorization">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ЭкзаменEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autorization" EntityType="Self.Autorization" />
+          <EntitySet Name="Buyer" EntityType="Self.Buyer" />
+          <EntitySet Name="Medicines" EntityType="Self.Medicines" />
+          <EntitySet Name="Pharmacist" EntityType="Self.Pharmacist" />
+          <AssociationSet Name="FK_Autorization_Buyer" Association="Self.FK_Autorization_Buyer">
+            <End Role="Buyer" EntitySet="Buyer" />
+            <End Role="Autorization" EntitySet="Autorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autorization_Pharmacist" Association="Self.FK_Autorization_Pharmacist">
+            <End Role="Pharmacist" EntitySet="Pharmacist" />
+            <End Role="Autorization" EntitySet="Autorization" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ЭкзаменModelContainer" CdmEntityContainer="ЭкзаменEntities">
+          <EntitySetMapping Name="Autorization">
+            <EntityTypeMapping TypeName="ЭкзаменModel.Autorization">
+              <MappingFragment StoreEntitySet="Autorization">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buyer">
+            <EntityTypeMapping TypeName="ЭкзаменModel.Buyer">
+              <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicines">
+            <EntityTypeMapping TypeName="ЭкзаменModel.Medicines">
+              <MappingFragment StoreEntitySet="Medicines">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Form_release" ColumnName="Form_release" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Shelf_life" ColumnName="Shelf_life" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pharmacist">
+            <EntityTypeMapping TypeName="ЭкзаменModel.Pharmacist">
+              <MappingFragment StoreEntitySet="Pharmacist">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
